@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Выберите категорию:</h1>
+    <div>
+        <a href="?type=Breakfast"><button>Завтрак</button></a>
+        <a href="?type=Lunch/Dinner"><button>Обед/Ужин</button></a>
+        <a href="?type=Dessert"><button>Десерт</button></a>
+        <a href="?"><button>Показать все</button></a>
+    </div>
+
+    <hr>
+    <div class="recipes-list">
+        {% for recipe in recipes %}
+            <div class="recipe-item">
+                {% if recipe.photo %}
+                    <img src="{{ recipe.photo.url }}" alt="{{ recipe.name }}" width="200">
+                {% endif %}
+
+                <h2>{{ recipe.name }}</h2>
+                <p><strong>Тип:</strong> {{ recipe.get_type_display }}</p>
+                <p>{{ recipe.description }}</p>
+            </div>
+            <hr>
+        {% empty %}
+            <p>В этой категории пока нет рецептов.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
