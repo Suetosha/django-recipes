@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .btn-custom-back {
+        color: #6c757d;
+        border-color: #6c757d;
+    }
+    .btn-custom-back:hover {
+        background-color: #ff69b4;
+        border-color: #ff69b4;
+        color: white;
+    }
+</style>
+
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="mb-4">
+                <a href="{% url 'recipes:recipes' %}" class="btn btn-custom-back btn-outline-secondary btn-sm">
+                    ← Назад к списку
+                </a>
+            </div>
+
+            <div class="card shadow border-0 overflow-hidden">
+                {% if recipe.photo %}
+                    <img src="{{ recipe.photo.url }}" class="card-img-top" alt="{{ recipe.name }}"
+                         style="max-height: 500px; object-fit: cover;">
+                {% endif %}
+
+                <div class="card-body p-4 p-md-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-primary fs-6">{{ recipe.get_type_display }}</span>
+                    </div>
+
+                    <h1 class="display-5 fw-bold mb-4">{{ recipe.name }}</h1>
+
+                    <div class="mb-5">
+                        <h4 class="text-muted mb-3">Описание</h4>
+                        <p class="lead" style="white-space: pre-line;">{{ recipe.description }}</p>
+                    </div>
+
+                    <hr class="my-5">
+
+                    <div>
+                        <h3 class="fw-bold mb-4">Пошаговый рецепт</h3>
+                        <div class="fs-5" style="white-space: pre-line; line-height: 1.8;">
+                            {{ recipe.recipe }}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

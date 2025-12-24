@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, DetailView
 
 from recipes.mixins import TitleMixin
 from recipes.models import Recipe
@@ -25,3 +25,11 @@ class RecipesView(TitleMixin, TemplateView):
 
         return context
 
+
+class RecipeDetailView(TitleMixin, DetailView):
+    model = Recipe
+    template_name = "recipe_detail.html"
+    context_object_name = "recipe"
+
+    def get_title(self):
+        return self.object.name
