@@ -1,5 +1,19 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-    <h1>Главная страница</h1>
+<div style="text-align: center; max-width: 800px; margin: 0 auto; padding: 20px;">
+    <div style="margin-top: 40px; margin-bottom: 25px;">
+        <img src="{% static 'images/recipes.jpeg' %}" alt="Рецепты" style="max-width: 65%; height: auto; border-radius: 10px;">
+    </div>
+
+    <h1 style="color: #333;">для Лизы и Влада</h1>
+    <p style="font-size: 1.2em; color: #666; margin-top: 40px;">На данном сайте будут представлены рецепты блюд, которые мы можем готовить вместе!</p>
+    <p style="font-style: italic; color: #888; margin-bottom: 50px">Считаю, что данный сайт — хорошая идея, так как больше не придется искать рецепты в скриншотах или избранных сообщениях.</p>
+
+
+    <div>
+        <img src="{% static 'images/hearts.webp' %}" alt="Стикер сердца" style="max-width: 20%; height: auto; border-radius: 10px;"/>
+    </div>
+</div>
 {% endblock %}

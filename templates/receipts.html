@@ -1,29 +1,57 @@
 {% extends 'base.html' %}
+{% load static %}
+
 
 {% block content %}
-    <h1>Выберите категорию:</h1>
-    <div>
-        <a href="?type=Breakfast"><button>Завтрак</button></a>
-        <a href="?type=Lunch/Dinner"><button>Обед/Ужин</button></a>
-        <a href="?type=Dessert"><button>Десерт</button></a>
-        <a href="?"><button>Показать все</button></a>
+    <div class="text-center">
+        <div style="margin-top: 40px; margin-bottom: 20px;">
+            <img src="{% static 'images/categories.jpeg' %}" alt="Категории" style="max-width: 35%; height: auto; border-radius: 10px;">
+        </div>
+
+        <div class="btn-group mb-4" role="group">
+            <a href="?type=Breakfast" class="btn btn-outline-primary">Завтрак</a>
+            <a href="?type=Lunch/Dinner" class="btn btn-outline-primary">Обед/Ужин</a>
+            <a href="?type=Dessert" class="btn btn-outline-primary">Десерт</a>
+            <a href="?" class="btn btn-outline-secondary">Показать все</a>
+        </div>
     </div>
 
-    <hr>
-    <div class="recipes-list">
-        {% for recipe in recipes %}
-            <div class="recipe-item">
-                {% if recipe.photo %}
-                    <img src="{{ recipe.photo.url }}" alt="{{ recipe.name }}" width="200">
-                {% endif %}
 
-                <h2>{{ recipe.name }}</h2>
-                <p><strong>Тип:</strong> {{ recipe.get_type_display }}</p>
-                <p>{{ recipe.description }}</p>
-            </div>
-            <hr>
-        {% empty %}
-            <p>В этой категории пока нет рецептов.</p>
-        {% endfor %}
+
+    <div class="container my-4">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for recipe in recipes %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        {% if recipe.photo %}
+                            <img src="{{ recipe.photo.url }}"
+                                 class="card-img-top"
+                                 alt="{{ recipe.name }}"
+                                 style="object-fit: cover; height: 200px;">
+                        {% else %}
+                            <div class="card-img-top bg-secondary text-white d-flex align-items-center justify-content-center"
+                                 style="height: 200px;">
+                                Нет фото
+                            </div>
+                        {% endif %}
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ recipe.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">
+                                {{ recipe.get_type_display }}
+                            </h6>
+                            <p class="card-text">
+                                {{ recipe.description|truncatewords:30 }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <p class="alert alert-info">В этой категории пока нет рецептов.</p>
+                </div>
+            {% endfor %}
+        </div>
     </div>
+
 {% endblock %}
